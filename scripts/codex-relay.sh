@@ -6,7 +6,7 @@
 #
 # 用法:
 #   scripts/codex-relay.sh                      # 用配置里的 TARGET（默认 auto 自动发现）
-#   scripts/codex-relay.sh --target tt-loop-13:0
+#   scripts/codex-relay.sh --target mycodex:0
 #   echo "问题正文" > <RELAY_DIR>/queue/001.txt && scripts/codex-relay.sh
 #
 # 退出码: 0 队列已清空 · 2 等空闲超时 · 3 提交失败（8 次 C-m 后仍未进入 Working）· 5 参数/环境问题

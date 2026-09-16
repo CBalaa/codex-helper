@@ -34,7 +34,7 @@ description: Use when an agent is stuck on a hard technical or contract problem 
 ```
 目标**不要硬编码**：默认 `TARGET=auto` 按进程树自动发现。用户粘来 tmux 状态栏那一行时：
 ```bash
-<skill>/scripts/codex-config.sh from-statusbar '[tt-loop-10:node*  "ttloop | tt-loop" 22:43 16-Sep-26'
+<skill>/scripts/codex-config.sh from-statusbar '[mycodex:node*  "codex | my-project" 22:43 16-Sep-26'
 ```
 配置与运行时状态都落在 `<工作区>/.codex_helper/`（`config.env` + `state/`），不进版本库。
 

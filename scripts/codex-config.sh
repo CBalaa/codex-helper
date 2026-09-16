@@ -2,7 +2,7 @@
 # codex-config.sh — 配置/体检入口：把「tmux 里的外部评审者是谁」变成一条命令。
 #
 # 对话里最省事的用法：用户把 tmux **状态栏那一行**原样粘过来，agent 跑：
-#   scripts/codex-config.sh from-statusbar '[tt-loop-10:node*   "ttloop | tt-loop" 22:43 16-Sep-26'
+#   scripts/codex-config.sh from-statusbar '[mycodex:node*   "codex | my-project" 22:43 16-Sep-26'
 # 它会：解析出「会话:窗口」与「面板标题」→ 会话还在就写死会话；会话改名了就改用面板标题定位
 # （面板标题就是状态栏右边那个带引号的串），并把结果写进 <工作区>/.codex_helper/config.env。
 #
@@ -67,7 +67,7 @@ case "$cmd" in
     [ $# -ge 1 ] || { echo "用法: codex-config.sh from-statusbar '<状态栏整行>'" >&2; exit 5; }
     relay_load_config
     parsed="$(relay_parse_statusbar "$1")" || {
-      echo "解析失败：请把状态栏整行原样粘进来（形如 [tt-loop-10:node*  \"ttloop | tt-loop\" 22:43 16-Sep-26）" >&2
+      echo "解析失败：请把状态栏整行原样粘进来（形如 [mycodex:node*  \"codex | my-project\" 22:43 16-Sep-26）" >&2
       exit 5
     }
     sw="${parsed%%$'\t'*}"; title="${parsed#*$'\t'}"

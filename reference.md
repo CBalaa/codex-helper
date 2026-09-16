@@ -51,7 +51,7 @@ target_session: <去向提示，可空>
 answer_file: /…/answers/20260916T225058-3620241.md     ← 正文只认这个
 source: file:/…/rounds/R7.md                            ← file: 优先；pane 是退化路径
 chars: 15321
-tmux: test:0.0
+tmux: mycodex:0.0
 next_hop: 读 answer_file 的正文 → 核验关键引用 → 落地/转给需要它的人
 checklist: ① 读 answer_file ② 核验 ③ 再落地 ④ 冲突就带反例再问一轮
 === ANSWER (truncated at 20000 chars) ===
@@ -127,7 +127,7 @@ checklist: ① 读 answer_file ② 核验 ③ 再落地 ④ 冲突就带反例�
 
 ```bash
 bash tests/smoke.sh                    # 静态自检（不碰 tmux、不消耗评审者）
-bash tests/smoke.sh --live test:0.0   # 可选：对真实 Codex 跑一次端到端（消耗一点上下文）
+bash tests/smoke.sh --live mycodex:0.0   # 可选：对真实 Codex 跑一次端到端（消耗一点上下文）
 ```
 覆盖：语法、工作区定位与上溯、状态栏解析容错、配置幂等、回滚模式自动退出、
 端到端（投递 → 忙闲门控 → 回合结束 → 落盘 → RELAY BLOCK → 稳定指针）、陈旧护栏。

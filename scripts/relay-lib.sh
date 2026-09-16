@@ -178,7 +178,7 @@ relay_resolve_target() {
     if [ "${n:-0}" -gt 1 ]; then
       echo "自动发现命中多个 Codex 面板，拒绝猜测。把状态栏右侧的标题子串配进去即可唯一确定：" >&2
       relay_print_panes "$panes" >&2
-      echo "  $RELAY_SCRIPT_DIR/codex-config.sh set-title '<标题子串，如 ttloop>'" >&2
+      echo "  $RELAY_SCRIPT_DIR/codex-config.sh set-title '<标题子串，如 codex>'" >&2
       return 5
     fi
     TARGET="${panes%%$'\t'*}"
@@ -195,7 +195,7 @@ relay_errored() {
 
 # 从用户粘贴的 tmux 状态栏里解析身份：回显 "会话:窗口<TAB>面板标题"。
 # 容错：可能没有闭括号、可能带 * / - 等窗口标记、整行里还有时间日期。
-relay_parse_statusbar() { # $1 = 形如 [tt-loop-10:node*   "ttloop | tt-loop" 22:43 16-Sep-26
+relay_parse_statusbar() { # $1 = 形如 [mycodex:node*   "codex | my-project" 22:43 16-Sep-26
   local raw="$1" sw title
   sw="${raw#"${raw%%[![:space:]]*}"}"   # 去掉前导空白
   sw="${sw#\[}"                          # 去掉开头的 [
@@ -215,7 +215,7 @@ relay_parse_statusbar() { # $1 = 形如 [tt-loop-10:node*   "ttloop | tt-loop" 2
 # 杂项
 # ---------------------------------------------------------------------------
 # --- 投递前的安全门（除了「忙不忙」，还要防「打扰人」）------------------------
-# 实测（2026-09-16，本机 tt-loop-13 空闲 20s）：window_activity 在无人操作时**不跳**，
+# 实测（2026-09-16，本机 mycodex 空闲 20s）：window_activity 在无人操作时**不跳**，
 # 所以「窗口最近有活动 + 有人挂在这个会话上」是判断「有人正在这个 pane 里打字」的可靠信号。
 relay_session_name() { tmux display-message -p -t "$TARGET" '#{session_name}' 2>/dev/null || true; }
 

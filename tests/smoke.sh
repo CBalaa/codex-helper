@@ -54,12 +54,12 @@ grep -q "不依赖任何编辑器/宿主插件" <("$S/codex-config.sh" check 2>/
 # ---------------------------------------------------------------------------
 step "3. 状态栏解析容错"
 . "$S/relay-lib.sh"
-p1="$(relay_parse_statusbar '[tt-loop-10:node*    "ttloop | tt-loop" 22:43 16-Sep-26')"
-p2="$(relay_parse_statusbar '[tt-loop-13] 0:node*  "ttloop | tt-loop" 22:43')"
-p3="$(relay_parse_statusbar 'tt-loop-13:0.0')"
-[ "${p1%%$'\t'*}" = "tt-loop-10:node" ] && [ "${p1#*$'\t'}" = "ttloop | tt-loop" ] && ok "无闭括号" || bad "无闭括号: [$p1]"
-[ "${p2%%$'\t'*}" = "tt-loop-13" ] && ok "带 ] 与窗口标记" || bad "带标记: [$p2]"
-[ "${p3%%$'\t'*}" = "tt-loop-13:0.0" ] && [ -z "${p3#*$'\t'}" ] && ok "无标题" || bad "无标题: [$p3]"
+p1="$(relay_parse_statusbar '[mycodex:node*    "codex | my-project" 22:43 16-Sep-26')"
+p2="$(relay_parse_statusbar '[mycodex] 0:node*  "codex | my-project" 22:43')"
+p3="$(relay_parse_statusbar 'mycodex:0.0')"
+[ "${p1%%$'\t'*}" = "mycodex:node" ] && [ "${p1#*$'\t'}" = "codex | my-project" ] && ok "无闭括号" || bad "无闭括号: [$p1]"
+[ "${p2%%$'\t'*}" = "mycodex" ] && ok "带 ] 与窗口标记" || bad "带标记: [$p2]"
+[ "${p3%%$'\t'*}" = "mycodex:0.0" ] && [ -z "${p3#*$'\t'}" ] && ok "无标题" || bad "无标题: [$p3]"
 relay_parse_statusbar '' >/dev/null 2>&1
 [ $? -eq 1 ] && ok "空串被拒" || bad "空串未被拒"
 
@@ -92,7 +92,7 @@ command -v flock >/dev/null 2>&1 && ok "flock（可选：同一工作区互斥�
 if [ "$MODE" = "live" ]; then
   step "7. 真实端到端（会消耗 $LIVE_TARGET 一点上下文）"
   if [ -z "$LIVE_TARGET" ]; then
-    bad "--live 需要 <tmux目标>（例：test:0.0）"
+    bad "--live 需要 <tmux目标>（例：mycodex:0.0）"
   else
     LWS="$(mktemp -d)"; mkdir -p "$LWS/.codex_helper/state/rounds"
     if [ -n "$LIVE_Q" ]; then q="$LIVE_Q"; else

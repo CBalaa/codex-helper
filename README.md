@@ -36,7 +36,7 @@ agent ───────────────► queue/*.txt ──► tmu
 S=<skill>/scripts
 $S/codex-config.sh show            # 看候选面板、工作区、配置
 # 目标不用硬编码：默认 auto 自动发现；用户粘来 tmux 状态栏就能配
-$S/codex-config.sh from-statusbar '[tt-loop-10:node*  "ttloop | tt-loop" 22:43 16-Sep-26'
+$S/codex-config.sh from-statusbar '[mycodex:node*  "codex | my-project" 22:43 16-Sep-26'
 
 # 提问（写成文件，然后**挂后台任务**——不要在前台等）
 $S/codex-ask.sh --question q.md --round R7 --timeout 3600
@@ -67,7 +67,7 @@ $S/codex-ask.sh --question q.md --round R7 --timeout 3600
 
 ```bash
 bash tests/smoke.sh                  # 静态自检：不碰 tmux、不消耗评审者上下文
-bash tests/smoke.sh --live test:0.0   # 可选：对真实 Codex 跑一次端到端（消耗一点上下文）
+bash tests/smoke.sh --live mycodex:0.0   # 可选：对真实 Codex 跑一次端到端（消耗一点上下文）
 ```
 
 ## 文档分工
