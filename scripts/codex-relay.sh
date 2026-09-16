@@ -53,12 +53,18 @@ wait_idle() { # 连续 2 次空闲、且没有人在动这个 pane，才允许�
 }
 
 submit() { # $1 = 队列文件
-  local f="$1" i
+  local f="$1" i digest
   relay_exit_copy_mode || true   # 万一等待期间有人上翻进了回滚模式，投递前再退一次
   tmux send-keys -t "$TARGET" -l "$(cat "$f")"
   for i in 1 2 3 4 5 6 7 8; do
     sleep 3; tmux send-keys -t "$TARGET" C-m; sleep 3
     if relay_busy; then relay_log "已提交 $(basename "$f")（第 $i 次 C-m 生效）"; return 0; fi
+    # 每次没生效都记一条画面摘要：下次出现「第 N 次才生效」时，用它判定到底是
+    #   ① 首次回车时机太早（输入框还在处理正文）② 回车被当成多行编辑的换行 ③ 忙标记假阴性
+    # （判据来自一次独立复核；有了这条日志才不用猜。）
+    digest="$(relay_pane 6 | grep -vE '^[[:space:]]*$' | tail -3 | tr '\n' '|')"
+    printf '%s [relay] C-m #%s 未生效 target=%s pane6=%s\n' \
+      "$(relay_now)" "$i" "$TARGET" "$digest" >> "$LOG" 2>/dev/null || true
   done
   relay_log "提交失败（8 次 C-m 后仍未进入 Working）：$(basename "$f")"
   return 1
