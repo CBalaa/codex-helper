@@ -75,3 +75,7 @@ bash tests/smoke.sh --live mycodex:0.0   # 可选：对真实 Codex 跑一次端
 - **`SKILL.md`** — agent 入口：什么时候该问、标准动作、问题自包含要求、红线。
 - **`reference.md`** — 实现细节：布局、退出码、RELAY BLOCK 字段、故障排查、**已知边界**。
 - 本 `README.md` — 人读的概览。
+
+## License
+
+Apache License 2.0 — 见 [LICENSE](LICENSE)。
